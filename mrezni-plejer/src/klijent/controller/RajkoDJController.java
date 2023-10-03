@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -61,7 +62,8 @@ public class RajkoDJController implements Initializable{
 		ubaciLoader.setLocation(getClass().getResource("/klijent/view/UbaciPjesmu.fxml"));
 		Parent root =  ubaciLoader.load();
 		
-		//UbaciPjesmuController pc = ubaciLoader.getController();
+		UbaciPjesmuController pc = ubaciLoader.getController();
+		pc.bezze();
 		//lvMuzickeZelje.getSelectionModel().getSelectedItem();
 		
 		Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
@@ -86,31 +88,35 @@ public class RajkoDJController implements Initializable{
 		lblIP.setText(IP);
 		procitajZelje();
 		procitajImena();
+		//lblTrenutnaPjesma.setText(lvMuzickeZelje.getItems().get(0));
 		
 	}
 	
 	
-	private void procitajZelje() throws IOException
-	    {
-	        File file = new File("C:\\Users\\libor\\OneDrive\\Documents\\GitHub\\mreze\\mrezni-plejer\\src\\muzicica\\SpisakZelja.txt");
+	public void procitajZelje() throws IOException {
+		
+		lvMuzickeZelje.getItems().clear();
+	    File file = new File("C:\\Users\\libor\\OneDrive\\Documents\\GitHub\\mreze\\mrezni-plejer\\src\\muzicica\\SpisakZelja.txt");
 	        //TODO: провјерити због чега мора апсолутна путања...
-	        FileReader fr = new FileReader(file);
+	    FileReader fr = new FileReader(file);
 	      
-	        BufferedReader br = new BufferedReader(fr);
-	        String pjesma;
+	    BufferedReader br = new BufferedReader(fr);
+	    String pjesma;
 	        
-	        while ((pjesma = br.readLine()) != null) {
-	        	lvMuzickeZelje.getItems().add(pjesma);
-	        	System.out.println(pjesma);
-	        }
-	      
-	        br.close();
-	        fr.close();
+	    while ((pjesma = br.readLine()) != null) {
+	    	lvMuzickeZelje.getItems().add(pjesma);
+	        System.out.println(pjesma);
 	    }
+	    Collections.reverse(lvMuzickeZelje.getItems());
+	    br.close();
+	    fr.close();
+	    
+	}
 	
-	private void procitajImena() throws IOException
-    {
-        File file = new File("C:\\Users\\libor\\OneDrive\\Documents\\GitHub\\mreze\\mrezni-plejer\\src\\klijent\\SpisakKlijenata.txt");
+	private void procitajImena() throws IOException {
+		lvDrugari.getItems().clear();
+        
+		File file = new File("C:\\Users\\libor\\OneDrive\\Documents\\GitHub\\mreze\\mrezni-plejer\\src\\klijent\\SpisakKlijenata.txt");
         //TODO: провјерити због чега мора апсолутна путања...
         FileReader fr = new FileReader(file);
       
@@ -128,6 +134,18 @@ public class RajkoDJController implements Initializable{
 	 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		try {
+			procitajZelje();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			procitajImena();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

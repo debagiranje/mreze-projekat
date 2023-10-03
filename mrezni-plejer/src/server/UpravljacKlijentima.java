@@ -8,9 +8,12 @@ import java.net.Socket;
 public class UpravljacKlijentima implements Runnable {
 	
 	protected Socket socketKlijent;
+	 private String username;
+	 private ServerZahtjevi server;
 
-	public UpravljacKlijentima(Socket klijent) {
+	public UpravljacKlijentima(Socket klijent, ServerZahtjevi server) {
 		socketKlijent = klijent;
+		this.server = server;
 	}
 
 	@Override
@@ -18,26 +21,21 @@ public class UpravljacKlijentima implements Runnable {
 		try {
 			// у/и токови за комуникацију са клијентом
 			BufferedReader citac = new BufferedReader(new InputStreamReader(socketKlijent.getInputStream()));
-			PrintWriter pisac = new PrintWriter(socketKlijent.getOutputStream(), true);
+			//PrintWriter pisac = new PrintWriter(socketKlijent.getOutputStream(), true);
 			
 			// музичка жеља
-			String zahtjev = citac.readLine();
-			System.out.println("NG pls napravi loger ---  pjesma je: " + zahtjev);
+			String poruka = citac.readLine();
+			if (poruka.startsWith("ime:")) {
+				System.out.println("NG pls napravi logger ---  ime je: " + poruka.split("ime:")[1]);
+				server.addConnectedClient(this);
+            } else if (poruka.startsWith("pjesma:")) {
+                ubaci(poruka.split("pjesma:")[1]);
+                System.out.println("Jupi, ubacio sam pjesmicu!");
+            }
 			
-			// е, овдје ће ићи испитивање да ли постоји та пјесма на серверу и да ли је већ једном (два три) пута додата у ред
-			// углавном, не знам да ли да онемогућимо кориснику да спамује са пјесмом
-			// да не буде да слушамо жарета и гоција док је ресурса (што можда и није лоше...)
-			
-			// TODO: обрада захтјева, враћање одговора кориснику (кроз ГКИ)?
-			
-			// TODO: нек писач штогод врати кориснику
-			
-			ubaci(zahtjev);
-			
-			pisac.println("Jupi, ubacio sam pjesmicu!");
 			
 			citac.close();
-			pisac.close();
+			//pisac.close();
 			
 			
 			socketKlijent.close();
@@ -50,9 +48,12 @@ public class UpravljacKlijentima implements Runnable {
 	
 	private void ubaci(String zahtjev)
 	{
-		// if zahtjev dobar...
-		
-		MuzickeZelje.ubaciPjesmu(zahtjev);
+		// if zahtjev dobar... a samo moze i biti dobar 
+		server.dodaj(zahtjev);
 	}
+	
+	public String getUsername() {
+        return username;
+    }
 
 }

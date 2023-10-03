@@ -52,12 +52,12 @@
                            </font>
                         </Label>
                         <ListView fx:id="lvMuzickeZelje" layoutX="4.0" layoutY="102.0" prefHeight="314.0" prefWidth="427.0" />
-                        <Label alignment="CENTER" layoutX="14.0" layoutY="428.0" style="&#10;" text="Тренутно иде:" textAlignment="CENTER" textFill="#0e1428" wrapText="false">
+                        <Label alignment="CENTER" layoutX="14.0" layoutY="428.0" style="&#10;" text="Сљедећа пјесма:" textAlignment="CENTER" textFill="#0e1428" wrapText="false">
                            <font>
                               <Font name="Segoe UI Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblTrenutnaPjesma" alignment="CENTER" layoutX="18.0" layoutY="452.0" style="&#10;" text="Мала Равни Стопала" textAlignment="CENTER" textFill="#f0a202" wrapText="false">
+                        <Label fx:id="lblTrenutnaPjesma" alignment="CENTER" layoutX="18.0" layoutY="452.0" style="&#10;" text="Она која се налази на врху реда :)" textAlignment="CENTER" textFill="#f0a202" wrapText="false">
                            <font>
                               <Font name="Segoe UI Bold" size="20.0" />
                            </font>

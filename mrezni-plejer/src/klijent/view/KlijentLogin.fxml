@@ -50,7 +50,7 @@
             <Font name="Segoe UI Bold" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="tfIP" layoutX="348.0" layoutY="220.0" prefHeight="26.0" prefWidth="183.0" promptText="127.0.0.1" />
+      <TextField fx:id="tfIP" layoutX="348.0" layoutY="220.0" prefHeight="26.0" prefWidth="183.0" promptText="127.0.0.1" text="localhost" />
       <Label layoutX="393.0" layoutY="274.0" prefHeight="35.0" prefWidth="97.0" text="Надимак:" textFill="#f0a202">
          <font>
             <Font name="Segoe UI Bold" size="20.0" />

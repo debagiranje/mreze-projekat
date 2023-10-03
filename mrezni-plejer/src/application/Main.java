@@ -17,6 +17,7 @@ public class Main extends Application {
 			Scene scene = new Scene(root,900,600);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
